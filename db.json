@@ -1,0 +1,153 @@
+{
+    "firstCoffeeFlavour": [
+        {
+            "id": 1,
+            "flavour": "nutty/coccoa"
+        },
+        {
+            "id": 2,
+            "flavour": "sweet"
+        },
+        {
+            "id": 3,
+            "flavour": "floral"
+        },
+        {
+            "id": 4,
+            "flavour": "fruity"
+        },
+        {
+            "id": 5,
+            "flavour": "alcohol"
+        }
+    ],
+    "secondCoffeeFlavour": [
+        {
+            "id": 1,
+            "flavour": "nutty",
+            "firstCoffeeFlavourId": 1
+        },
+        {
+            "id": 2,
+            "flavour": "cocoa",
+            "firstCoffeeFlavourId": 1
+        },
+        {
+            "id": 3,
+            "flavour": "brown suggar",
+            "firstCoffeeFlavourId": 2
+        },
+        {
+            "id": 4,
+            "flavour": "vanilla",
+            "firstCoffeeFlavourId": 2
+        },
+        {
+            "id": 5,
+            "flavour": "rose",
+            "firstCoffeeFlavourId": 3
+        },
+        {
+            "id": 6,
+            "flavour": "jasmine",
+            "firstCoffeeFlavourId": 3
+        },
+        {
+            "id": 7,
+            "flavour": "berry",
+            "firstCoffeeFlavourId": 4
+        },
+        {
+            "id": 8,
+            "flavour": "dried fruit",
+            "firstCoffeeFlavourId": 4
+        },
+        {
+            "id": 9,
+            "flavour": "citrus",
+            "firstCoffeeFlavourId": 4
+        },
+        {
+            "id": 10,
+            "flavour": "whiskey",
+            "firstCoffeeFlavourId": 5
+        },
+        {
+            "id": 11,
+            "flavour": "winey",
+            "firstCoffeeFlavourId": 5
+        }
+    ],
+    "thirdCoffeeFlavour": [
+        {
+            "id": 1,
+            "flavour": "almound",
+            "firstCoffeeFlavourId": 1
+        },
+        {
+            "id": 2,
+            "flavour": "hazelnut",
+            "firstCoffeeFlavourId": 1
+        },
+        {
+            "id": 3,
+            "flavour": "chocolate",
+            "firstCoffeeFlavourId": 2
+        },
+        {
+            "id": 4,
+            "flavour": "dark chocolate",
+            "firstCoffeeFlavourId": 2
+        },
+        {
+            "id": 5,
+            "flavour": "maple syrup",
+            "firstCoffeeFlavourId": 3
+        },
+        {
+            "id": 6,
+            "flavour": "honey",
+            "firstCoffeeFlavourId": 3
+        },
+        {
+            "id": 7,
+            "flavour": "blackberry",
+            "firstCoffeeFlavourId": 7
+        },
+        {
+            "id": 8,
+            "flavour": "blueberry",
+            "firstCoffeeFlavourId": 7
+        },
+        {
+            "id": 9,
+            "flavour": "raspberry",
+            "firstCoffeeFlavourId": 7
+        },
+        {
+            "id": 10,
+            "flavour": "raisin",
+            "firstCoffeeFlavourId": 8
+        },
+        {
+            "id": 11,
+            "flavour": "prune",
+            "firstCoffeeFlavourId": 8
+        },
+        {
+            "id": 12,
+            "flavour": "orange",
+            "firstCoffeeFlavourId": 9
+        },
+        {
+            "id": 13,
+            "flavour": "lemon",
+            "firstCoffeeFlavourId": 9
+        },
+        {
+            "id": 14,
+            "flavour": "lime",
+            "firstCoffeeFlavourId": 9
+        }
+    ]
+}
