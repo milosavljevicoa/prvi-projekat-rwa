@@ -1,0 +1,16 @@
+.first-type-of-flavour {
+	margin: 80px;
+}
+.list-group {
+	align-self: center;
+	justify-self: center;
+}
+
+.coffee-flavour-div {
+	display: flex;
+	flex-direction: row;
+}
+
+.coffee-flavour-div p {
+	margin: 0px 0px 5px 5px;
+}
