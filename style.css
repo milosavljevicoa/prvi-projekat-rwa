@@ -1,9 +1,15 @@
-.first-type-of-flavour {
-	margin: 80px;
+.flavour-div {
+	margin: 20px;
 }
 .list-group {
 	align-self: center;
 	justify-self: center;
+	list-style-type: none;
+}
+
+.flavours {
+	padding: 0;
+	margin: 2px;
 }
 
 .coffee-flavour-div {
