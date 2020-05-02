@@ -1,22 +1,32 @@
-.flavour-div {
-	margin: 20px;
+.row {
+	margin: 0;
 }
+.flavour-div {
+	min-height: 100px;
+	padding: 0% 20%;
+	align-items: center;
+}
+
+#first-type {
+	margin-top: 20px;
+}
+
 .list-group {
-	align-self: center;
-	justify-self: center;
 	list-style-type: none;
+	flex-wrap: wrap;
 }
 
 .flavours {
 	padding: 0;
-	margin: 2px;
+	margin: 5px 10px;
+	width: 120px;
 }
 
 .coffee-flavour-div {
 	display: flex;
-	flex-direction: row;
+	align-self: flex-start;
 }
 
-.coffee-flavour-div p {
-	margin: 0px 0px 5px 5px;
+.coffee-flavour-div button {
+	width: 100%;
 }

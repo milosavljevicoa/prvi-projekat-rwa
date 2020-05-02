@@ -1,9 +1,9 @@
 import { Subject } from "rxjs";
 
 abstract class CoffeeFlavour {
-	constructor(private _id: string, private _typeOfFlavour: string) {}
+	constructor(private _id: string, protected _typeOfFlavour: string) {}
 
-	drawListItem(ul: HTMLUListElement): HTMLButtonElement {
+	drawButtonAsListItem(ul: HTMLUListElement): HTMLButtonElement {
 		const classNameLi: string = "flavours";
 		const li: HTMLLIElement = document.createElement("li");
 		li.className = classNameLi;
@@ -15,15 +15,16 @@ abstract class CoffeeFlavour {
 		li.appendChild(wrapperDiv);
 		const button: HTMLButtonElement = document.createElement("button");
 		button.className = "btn btn-dark";
-		button.innerText = this._typeOfFlavour;
-		// button.onclick = () => {
-		// 	this.pushToStream();
-		// };
+		button.innerText = this.textInButton();
 		wrapperDiv.appendChild(button);
 		return button;
 	}
 
+	protected abstract textInButton(): string;
+
 	abstract addIdToSubject(): void;
+
+	abstract get parrentFlavourId(): string;
 
 	get id(): string {
 		return this._id;

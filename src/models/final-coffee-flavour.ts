@@ -11,6 +11,10 @@ export default class FinalCoffeeFlavour extends CoffeeFlavour {
 		super(id, typeOfFlavour);
 	}
 
+	protected textInButton(): string {
+		return this._typeOfFlavour;
+	}
+
 	addIdToSubject(): void {
 		FinalCoffeeFlavour.myStream.next(this.id);
 	}

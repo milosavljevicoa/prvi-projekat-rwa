@@ -1,13 +1,9 @@
 import CoffeePickerView from "./view/coffee-picker-view";
-import { fetchFirstTypeFlavours } from "./services/coffee-picker";
-import FirstCoffeeFlavour from "./models/first-coffee-flavour";
+import { fetchFirstTypeFlavours } from "./services/fetch-from-databse";
+import PrimaryCoffeeFlavour from "./models/primary-coffee-flavour";
 
 const firstTypeCoffeeFlavourDiv: HTMLDivElement | null = <HTMLDivElement>(
 	document.getElementById("first-type")
-);
-
-const secondTypeOfCoffeeFlavourDiv: HTMLDivElement | null = <HTMLDivElement>(
-	document.getElementById("second-type")
 );
 
 const finalTypeOfCoffeeFlavourDiv: HTMLDivElement | null = <HTMLDivElement>(
@@ -16,17 +12,11 @@ const finalTypeOfCoffeeFlavourDiv: HTMLDivElement | null = <HTMLDivElement>(
 
 const view: CoffeePickerView = new CoffeePickerView();
 
-if (firstTypeCoffeeFlavourDiv !== null) {
-	view.drawFirstCoffeeFlavours(
-		firstTypeCoffeeFlavourDiv,
-		fetchFirstTypeFlavours()
-	);
-}
+view.drawCompletedView();
 
-if (secondTypeOfCoffeeFlavourDiv !== null) {
-	view.drawSecoundCoffeeFlavours(
-		secondTypeOfCoffeeFlavourDiv,
-		FirstCoffeeFlavour.myStream
-	);
-	// drawCoffeeFlavours(secondTypeOfCoffeeFlavourDiv, FirstCoffeeFlavour.myStream);
-}
+// if (firstTypeCoffeeFlavourDiv !== null) {
+// 	view.drawFirstCoffeeFlavours(
+// 		firstTypeCoffeeFlavourDiv,
+// 		fetchFirstTypeFlavours()
+// 	);
+// }
