@@ -1,19 +1,25 @@
-import CoffeeFlavourList from "./coffee-flavour-list";
-import { Observable, Subject } from "rxjs";
-import CoffeeFlavour from "../../models/coffee-flavour";
+//rxjs
+import { Observable } from "rxjs";
 import { take, concatAll } from "rxjs/operators";
+//flavours
+import CoffeeFlavour from "../../models/coffee-flavour";
+//coffee flavour list
+import CoffeeFlavourList from "./abstract-classes/coffee-flavour-list";
 import SecondaryCoffeeFlavourList from "./secondary-coffee-flavour-list";
-import { fetchFirstTypeFlavours } from "../../services/fetch-from-databse";
+//database access functions
+import { fetchPrimaryTypeFlavours } from "../../services/fetch-from-databse";
 
 class PrimaryCoffeeFlavourList extends CoffeeFlavourList {
 	private isPrimaryFlavourPicked: boolean = false;
+	private primaryCoffeeFlavours: Observable<Array<CoffeeFlavour>>;
 
 	constructor(private secondaryCoffeeLavourList: SecondaryCoffeeFlavourList) {
 		super(<HTMLDivElement>document.getElementById("first-type"));
+		this.primaryCoffeeFlavours = fetchPrimaryTypeFlavours();
 	}
 
 	protected configureObservable(): Observable<CoffeeFlavour> {
-		return fetchFirstTypeFlavours().pipe(take(1), concatAll());
+		return this.primaryCoffeeFlavours.pipe(take(1), concatAll());
 	}
 
 	protected subscribeToObservable(observable: Observable<CoffeeFlavour>): void {
@@ -27,15 +33,13 @@ class PrimaryCoffeeFlavourList extends CoffeeFlavourList {
 				else {
 					this.isPrimaryFlavourPicked = true;
 					this.secondaryCoffeeLavourList.drawCoffeeList(
-						"Now pick with a bit more detail"
+						"What flavour profile would you like"
 					);
 				}
 				flavour.addIdToSubject();
 			};
 		});
 	}
-
-	public clearList(): void {}
 }
 
 export default PrimaryCoffeeFlavourList;

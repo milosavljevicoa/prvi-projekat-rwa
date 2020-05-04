@@ -8,26 +8,24 @@ import CoffeeBeans from "../models/coffee-bean";
 
 const DATA_BASE_URL: string = "http://localhost:3000/";
 
-// let firstTypeOfCoffeeFlavourStream: Observable<FirstCoffeeFlavour>;
-// let secondTypeOfCoffeeFlavourStream: Observable<SecoundCoffeeFlavour>;
-// let finalTypeOfCoffeeFlavourStream: Observable<FinalCoffeeFlavour>;
-
-function getCoffee(specificType: string): Observable<Array<CoffeeFlavour>> {
+function getCoffeeFlavour(
+	specificType: string
+): Observable<Array<CoffeeFlavour>> {
 	return from(
 		fetch(DATA_BASE_URL + specificType).then((data: Response) => data.json())
 	);
 }
 
-export function fetchFirstTypeFlavours(): Observable<Array<CoffeeFlavour>> {
-	return getCoffee("firstCoffeeFlavour").pipe(
+export function fetchPrimaryTypeFlavours(): Observable<Array<CoffeeFlavour>> {
+	return getCoffeeFlavour("firstCoffeeFlavour").pipe(
 		map((DTOs: Array<any>) =>
 			DTOs.map((DTO: any) => PrimaryCoffeeFlavour.createCoffeeFlavour(DTO))
 		)
 	);
 }
 
-export function fetchSecondTypeFlavours(): Observable<Array<CoffeeFlavour>> {
-	return getCoffee("secondCoffeeFlavour").pipe(
+export function fetchSecondaryTypeFlavours(): Observable<Array<CoffeeFlavour>> {
+	return getCoffeeFlavour("secondCoffeeFlavour").pipe(
 		map((DTOs: Array<any>) =>
 			DTOs.map((DTO: any) => SecondaryCoffeeFlavour.createCoffeeFlavour(DTO))
 		)
@@ -35,7 +33,7 @@ export function fetchSecondTypeFlavours(): Observable<Array<CoffeeFlavour>> {
 }
 
 export function fetchFinalTypeFlavours(): Observable<Array<CoffeeFlavour>> {
-	return getCoffee("finalFlavourProfile").pipe(
+	return getCoffeeFlavour("finalFlavourProfile").pipe(
 		map((DTOs: Array<any>) =>
 			DTOs.map((DTO: any) => FinalCoffeeFlavour.createCoffeeFlavour(DTO))
 		)
@@ -43,7 +41,7 @@ export function fetchFinalTypeFlavours(): Observable<Array<CoffeeFlavour>> {
 }
 
 export function fetchCoffeeBeans(): Observable<Array<CoffeeFlavour>> {
-	return getCoffee("coffeeBeans").pipe(
+	return getCoffeeFlavour("coffeeBeans").pipe(
 		map((DTOs: Array<any>) =>
 			DTOs.map((DTO: any) => CoffeeBeans.createCoffeeBeans(DTO))
 		)

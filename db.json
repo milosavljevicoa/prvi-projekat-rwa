@@ -26,7 +26,7 @@
         },
         {
             "id": "3",
-            "flavour": "vanilla",
+            "flavour": "vanilla/cream",
             "firstCoffeeFlavourId": "2"
         },
         {
@@ -80,6 +80,11 @@
             "id": "8",
             "flavour": "orange",
             "secondCoffeeFlavourId": "5"
+        },
+        {
+            "id": "9",
+            "flavour": "cream",
+            "secondCoffeeFlavourId": "3"
         }
     ],
     "coffeeBeans": [
@@ -223,7 +228,7 @@
                     "id": "6"
                 },
                 {
-                    "id": "5"
+                    "id": "9"
                 }
             ],
             "link": "https://www.coffeeam.com/products/blueberry-cream-flavored-coffee?_pos=3&_sid=2de2cbed7&_ss=r"
@@ -234,6 +239,9 @@
             "finalFlavourProfileIDs": [
                 {
                     "id": "3"
+                },
+                {
+                    "id": "9"
                 }
             ],
             "link": "https://www.coffeeam.com/products/raspberry-cream-flavored-coffee?_pos=8&_sid=f07dbd99c&_ss=r"
@@ -276,6 +284,9 @@
                 },
                 {
                     "id": "2"
+                },
+                {
+                    "id": "9"
                 }
             ],
             "link": "https://www.coffeeam.com/products/frangelica-cream-flavored-coffee?_pos=5&_sid=26c666f91&_ss=r"

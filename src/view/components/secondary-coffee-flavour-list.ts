@@ -1,22 +1,28 @@
-import CoffeeFlavourList from "./coffee-flavour-list";
+//rxjs
+import { Observable } from "rxjs";
+import { concatAll, switchMap, filter } from "rxjs/operators";
+//flavours
 import CoffeeFlavour from "../../models/coffee-flavour";
-import { Observable, Subject } from "rxjs";
-import { concatAll, take, switchMap, filter } from "rxjs/operators";
-import { fetchSecondTypeFlavours } from "../../services/fetch-from-databse";
 import PrimaryCoffeeFlavour from "../../models/primary-coffee-flavour";
+//coffee flavour list
+import ChildsCoffeeFlavourLists from "./abstract-classes/childs-coffee-flavour-list";
 import FinalCoffeeFlavourList from "./final-coffee-flavour-list";
+//database access functions
+import { fetchSecondaryTypeFlavours } from "../../services/fetch-from-databse";
 
-class SecondaryCoffeeFlavourList extends CoffeeFlavourList {
+class SecondaryCoffeeFlavourList extends ChildsCoffeeFlavourLists {
 	private isSecondaryFlavourPicked: boolean = false;
+	private secondaryCoffeeFlavours: Observable<Array<CoffeeFlavour>>;
 
 	constructor(private _finalCoffeeFlavourList: FinalCoffeeFlavourList) {
 		super(<HTMLDivElement>document.getElementById("second-type"));
+		this.secondaryCoffeeFlavours = fetchSecondaryTypeFlavours();
 	}
 
 	protected configureObservable(): Observable<CoffeeFlavour> {
-		return PrimaryCoffeeFlavour.myStream.pipe(
+		return PrimaryCoffeeFlavour.selectedFlavours.pipe(
 			switchMap((id: string) => {
-				return fetchSecondTypeFlavours().pipe(
+				return this.secondaryCoffeeFlavours.pipe(
 					concatAll(),
 					filter((flavour: CoffeeFlavour) => flavour.parrentFlavourId === id)
 				);

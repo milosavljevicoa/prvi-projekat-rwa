@@ -1,8 +1,8 @@
-import CoffeeFlavour from "./coffee-flavour";
 import { Subject } from "rxjs";
+import CoffeeFlavour from "./coffee-flavour";
 
 export default class FinalCoffeeFlavour extends CoffeeFlavour {
-	public static myStream: Subject<string> = new Subject<string>();
+	public static selectedFlavours: Subject<string> = new Subject<string>();
 	constructor(
 		id: string,
 		typeOfFlavour: string,
@@ -11,12 +11,8 @@ export default class FinalCoffeeFlavour extends CoffeeFlavour {
 		super(id, typeOfFlavour);
 	}
 
-	protected textInButton(): string {
-		return this._typeOfFlavour;
-	}
-
 	addIdToSubject(): void {
-		FinalCoffeeFlavour.myStream.next(this.id);
+		FinalCoffeeFlavour.selectedFlavours.next(this.id);
 	}
 
 	get parrentFlavourId(): string {

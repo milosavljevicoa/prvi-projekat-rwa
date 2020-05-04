@@ -3,7 +3,7 @@
 }
 .flavour-div {
 	min-height: 100px;
-	padding: 0% 20%;
+	padding: 0% 22%;
 	align-items: center;
 }
 
@@ -14,6 +14,8 @@
 .list-group {
 	list-style-type: none;
 	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
 }
 
 .flavours {

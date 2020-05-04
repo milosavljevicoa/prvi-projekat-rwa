@@ -1,5 +1,3 @@
-import { Subject } from "rxjs";
-
 abstract class CoffeeFlavour {
 	constructor(private _id: string, protected _typeOfFlavour: string) {}
 
@@ -15,12 +13,14 @@ abstract class CoffeeFlavour {
 		li.appendChild(wrapperDiv);
 		const button: HTMLButtonElement = document.createElement("button");
 		button.className = "btn btn-dark";
-		button.innerText = this.textInButton();
+		button.innerText = this.flavourDescriptionInButton();
 		wrapperDiv.appendChild(button);
 		return button;
 	}
 
-	protected abstract textInButton(): string;
+	private flavourDescriptionInButton(): string {
+		return this._typeOfFlavour;
+	}
 
 	abstract addIdToSubject(): void;
 

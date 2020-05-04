@@ -1,21 +1,28 @@
-import CoffeeFlavourList from "./coffee-flavour-list";
-import { fetchFinalTypeFlavours } from "../../services/fetch-from-databse";
-import SecondaryCoffeeFlavour from "../../models/secondary-coffee-flavour";
-import { switchMap, concatAll, filter } from "rxjs/operators";
-import CoffeeFlavour from "../../models/coffee-flavour";
+//rxjs
 import { Observable } from "rxjs";
+import { switchMap, concatAll, filter } from "rxjs/operators";
+//flavours
+import SecondaryCoffeeFlavour from "../../models/secondary-coffee-flavour";
+import CoffeeFlavour from "../../models/coffee-flavour";
+//coffee flavour list
+import ChildsCoffeeFlavourLists from "./abstract-classes/childs-coffee-flavour-list";
 import CoffeeBeansList from "./coffee-beans-list";
+//database access functions
+import { fetchFinalTypeFlavours } from "../../services/fetch-from-databse";
 
-class FinalCoffeeFlavourList extends CoffeeFlavourList {
+class FinalCoffeeFlavourList extends ChildsCoffeeFlavourLists {
 	private _isFinalCoffeeFlavourPicked: boolean = false;
+	private finalCoffeeFlavours: Observable<Array<CoffeeFlavour>>;
+
 	constructor(private _coffeeBeansList: CoffeeBeansList) {
 		super(<HTMLDivElement>document.getElementById("final-type"));
+		this.finalCoffeeFlavours = fetchFinalTypeFlavours();
 	}
 
 	protected configureObservable(): Observable<CoffeeFlavour> {
-		return SecondaryCoffeeFlavour.myStream.pipe(
+		return SecondaryCoffeeFlavour.selectedFlavours.pipe(
 			switchMap((id: string) => {
-				return fetchFinalTypeFlavours().pipe(
+				return this.finalCoffeeFlavours.pipe(
 					concatAll(),
 					filter((flavour: CoffeeFlavour) => flavour.parrentFlavourId === id)
 				);

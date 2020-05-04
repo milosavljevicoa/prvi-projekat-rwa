@@ -1,8 +1,9 @@
-import { Observable, Subject } from "rxjs";
-import CoffeeFlavour from "../../models/coffee-flavour";
+import { Observable } from "rxjs";
+import CoffeeFlavour from "../../../models/coffee-flavour";
 
 abstract class CoffeeFlavourList {
 	protected _list: HTMLUListElement;
+
 	constructor(private _host: HTMLDivElement) {
 		this._list = this.createUnorderListWithStyles();
 	}
@@ -35,8 +36,6 @@ abstract class CoffeeFlavourList {
 	protected abstract subscribeToObservable(
 		observable: Observable<CoffeeFlavour>
 	): void;
-
-	public abstract clearList(): void;
 }
 
 export default CoffeeFlavourList;
