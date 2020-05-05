@@ -1,9 +1,17 @@
+p {
+	margin-bottom: 6px;
+}
+
+.checkbox {
+	margin-right: 3px;
+}
+
 .row {
 	margin: 0;
 }
 .flavour-div {
 	min-height: 100px;
-	padding: 0% 22%;
+	padding: 0% 15%;
 	align-items: center;
 }
 
@@ -21,12 +29,14 @@
 .flavours {
 	padding: 0;
 	margin: 5px 10px;
-	width: 120px;
+	width: 150px;
 }
 
 .coffee-flavour-div {
 	display: flex;
 	align-self: flex-start;
+	align-content: center;
+	justify-content: center;
 }
 
 .coffee-flavour-div button {

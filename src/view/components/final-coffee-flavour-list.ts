@@ -1,5 +1,5 @@
 //rxjs
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { switchMap, concatAll, filter } from "rxjs/operators";
 //flavours
 import SecondaryCoffeeFlavour from "../../models/secondary-coffee-flavour";
@@ -9,10 +9,14 @@ import ChildsCoffeeFlavourLists from "./abstract-classes/childs-coffee-flavour-l
 import CoffeeBeansList from "./coffee-beans-list";
 //database access functions
 import { fetchFinalTypeFlavours } from "../../services/fetch-from-databse";
+import SecondaryCoffeeFlavourList from "./secondary-coffee-flavour-list";
 
 class FinalCoffeeFlavourList extends ChildsCoffeeFlavourLists {
 	private _isFinalCoffeeFlavourPicked: boolean = false;
 	private finalCoffeeFlavours: Observable<Array<CoffeeFlavour>>;
+	public static checkedFinalCoffeeFlavours: Subject<
+		Array<string>
+	> = new Subject();
 
 	constructor(private _coffeeBeansList: CoffeeBeansList) {
 		super(<HTMLDivElement>document.getElementById("final-type"));
@@ -20,11 +24,19 @@ class FinalCoffeeFlavourList extends ChildsCoffeeFlavourLists {
 	}
 
 	protected configureObservable(): Observable<CoffeeFlavour> {
-		return SecondaryCoffeeFlavour.selectedFlavours.pipe(
-			switchMap((id: string) => {
+		return SecondaryCoffeeFlavourList.checkedSecondaryCoffeeFlavours.pipe(
+			switchMap((ids: Array<string>) => {
 				return this.finalCoffeeFlavours.pipe(
 					concatAll(),
-					filter((flavour: CoffeeFlavour) => flavour.parrentFlavourId === id)
+					filter((flavour: CoffeeFlavour) => {
+						let flavourProfileSelected: boolean = false;
+						ids.forEach((id: string) => {
+							if (flavour.parrentFlavourId === id) {
+								flavourProfileSelected = true;
+							}
+						});
+						return flavourProfileSelected;
+					})
 				);
 			})
 		);
@@ -32,18 +44,27 @@ class FinalCoffeeFlavourList extends ChildsCoffeeFlavourLists {
 
 	protected subscribeToObservable(observable: Observable<CoffeeFlavour>): void {
 		observable.subscribe((flavour: CoffeeFlavour) => {
-			const buttonFlavour: HTMLButtonElement = flavour.drawButtonAsListItem(
+			const checkInputFlavour: HTMLInputElement = flavour.drawChechInputAsListItem(
 				this._list
 			);
-			buttonFlavour.onclick = () => {
+			checkInputFlavour.onclick = () => {
 				if (this._isFinalCoffeeFlavourPicked) this._coffeeBeansList.clearList();
 				else {
 					this._isFinalCoffeeFlavourPicked = true;
 					this._coffeeBeansList.drawCoffeeList(
-						"Here is the link to your perfect coffee beans"
+						"What flavour profile would you like"
 					);
 				}
-				flavour.addIdToSubject();
+				if (checkInputFlavour.checked) {
+					this._selectedIds.push(flavour.id);
+				} else {
+					this._selectedIds = this._selectedIds.filter(
+						(id: string) => id !== flavour.id
+					);
+				}
+				FinalCoffeeFlavourList.checkedFinalCoffeeFlavours.next(
+					this._selectedIds
+				);
 			};
 		});
 	}

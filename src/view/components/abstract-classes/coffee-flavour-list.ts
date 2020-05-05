@@ -3,9 +3,11 @@ import CoffeeFlavour from "../../../models/coffee-flavour";
 
 abstract class CoffeeFlavourList {
 	protected _list: HTMLUListElement;
+	protected _selectedIds: Array<string>;
 
 	constructor(private _host: HTMLDivElement) {
 		this._list = this.createUnorderListWithStyles();
+		this._selectedIds = new Array();
 	}
 
 	private createUnorderListWithStyles(): HTMLUListElement {

@@ -10,12 +10,6 @@ class CoffeeBeans extends CoffeeFlavour {
 		super(id, typeOfFlavour);
 	}
 
-	addIdToSubject(): void {}
-
-	// protected flavourDescriptionInButton(): string {
-	// 	return this._typeOfFlavour;
-	// }
-
 	get parrentFlavourId(): string {
 		let idsSeperatedByComma: string = this._parrentFlavourId.reduce(
 			(finalString, currentDTO) => {

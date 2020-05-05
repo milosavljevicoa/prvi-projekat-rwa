@@ -1,5 +1,5 @@
 //rxjs
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { take, concatAll } from "rxjs/operators";
 //flavours
 import CoffeeFlavour from "../../models/coffee-flavour";
@@ -12,9 +12,17 @@ import { fetchPrimaryTypeFlavours } from "../../services/fetch-from-databse";
 class PrimaryCoffeeFlavourList extends CoffeeFlavourList {
 	private isPrimaryFlavourPicked: boolean = false;
 	private primaryCoffeeFlavours: Observable<Array<CoffeeFlavour>>;
+	private static containerDivId: string = "first-type";
+	public static checkedPrimaryCoffeeFlavours: Subject<
+		Array<string>
+	> = new Subject();
 
 	constructor(private secondaryCoffeeLavourList: SecondaryCoffeeFlavourList) {
-		super(<HTMLDivElement>document.getElementById("first-type"));
+		super(
+			<HTMLDivElement>(
+				document.getElementById(PrimaryCoffeeFlavourList.containerDivId)
+			)
+		);
 		this.primaryCoffeeFlavours = fetchPrimaryTypeFlavours();
 	}
 
@@ -24,19 +32,28 @@ class PrimaryCoffeeFlavourList extends CoffeeFlavourList {
 
 	protected subscribeToObservable(observable: Observable<CoffeeFlavour>): void {
 		observable.subscribe((flavour: CoffeeFlavour) => {
-			const buttonFlavour: HTMLButtonElement = flavour.drawButtonAsListItem(
+			const checkInputFlavour: HTMLInputElement = flavour.drawChechInputAsListItem(
 				this._list
 			);
-			buttonFlavour.onclick = () => {
+			checkInputFlavour.onclick = (event) => {
 				if (this.isPrimaryFlavourPicked)
-					this.secondaryCoffeeLavourList.clearList();
+					this.secondaryCoffeeLavourList.clearList(this._selectedIds);
 				else {
 					this.isPrimaryFlavourPicked = true;
 					this.secondaryCoffeeLavourList.drawCoffeeList(
 						"What flavour profile would you like"
 					);
 				}
-				flavour.addIdToSubject();
+				if (checkInputFlavour.checked) {
+					this._selectedIds.push(flavour.id);
+				} else {
+					this._selectedIds = this._selectedIds.filter(
+						(id: string) => id !== flavour.id
+					);
+				}
+				PrimaryCoffeeFlavourList.checkedPrimaryCoffeeFlavours.next(
+					this._selectedIds
+				);
 			};
 		});
 	}

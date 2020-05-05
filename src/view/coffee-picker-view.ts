@@ -6,18 +6,23 @@ import CoffeeBeansList from "./components/coffee-beans-list";
 
 class CoffeePickerView {
 	private _primaryCoffeeFlavourList: PrimaryCoffeeFlavourList;
+	private _secondaryCoffeeFlavourList: SecondaryCoffeeFlavourList;
+	private _finalCoffeeFlavourList: FinalCoffeeFlavourList;
+	private _coffeeBeansList: CoffeeBeansList;
 
 	constructor() {
-		const coffeeBeansList = new CoffeeBeansList();
+		this._coffeeBeansList = new CoffeeBeansList();
 
-		const finalCoffeeFlavourList = new FinalCoffeeFlavourList(coffeeBeansList);
+		this._finalCoffeeFlavourList = new FinalCoffeeFlavourList(
+			this._coffeeBeansList
+		);
 
-		const secondaryCoffeeFlavourList = new SecondaryCoffeeFlavourList(
-			finalCoffeeFlavourList
+		this._secondaryCoffeeFlavourList = new SecondaryCoffeeFlavourList(
+			this._finalCoffeeFlavourList
 		);
 
 		this._primaryCoffeeFlavourList = new PrimaryCoffeeFlavourList(
-			secondaryCoffeeFlavourList
+			this._secondaryCoffeeFlavourList
 		);
 	}
 

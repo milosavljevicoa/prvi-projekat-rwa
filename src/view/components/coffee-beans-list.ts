@@ -18,32 +18,35 @@ class CoffeeBeansList extends ChildsCoffeeFlavourLists {
 	}
 
 	protected configureObservable(): Observable<CoffeeFlavour> {
-		return FinalCoffeeFlavour.selectedFlavours.pipe(
-			switchMap((id: string) => {
-				return this.coffeeBeansFlavours.pipe(
-					concatAll(),
-					filter((bean: CoffeeFlavour) => {
-						let beanIds = bean.parrentFlavourId.split(",");
-						let isRightTypeOfFlavour: boolean = false;
-						beanIds.forEach((beanId: string) => {
-							if (beanId === id) isRightTypeOfFlavour = true;
-						});
-						return isRightTypeOfFlavour;
-					})
-				);
-			})
-		);
+		//this is commented until i figure out how to properly display elements
+		// return FinalCoffeeFlavour.selectedFlavours.pipe(
+		// 	switchMap((id: string) => {
+		// 		return this.coffeeBeansFlavours.pipe(
+		// 			concatAll(),
+		// 			filter((bean: CoffeeFlavour) => {
+		// 				let beanIds = bean.parrentFlavourId.split(",");
+		// 				let isRightTypeOfFlavour: boolean = false;
+		// 				beanIds.forEach((beanId: string) => {
+		// 					if (beanId === id) isRightTypeOfFlavour = true;
+		// 				});
+		// 				return isRightTypeOfFlavour;
+		// 			})
+		// 		);
+		// 	})
+		// );
+		return this.coffeeBeansFlavours.pipe(concatAll()); //just so the function does not display error
 	}
 
 	protected subscribeToObservable(observable: Observable<CoffeeBeans>): void {
-		observable.subscribe((coffeeBean: CoffeeBeans) => {
-			const coffeeBeanBtn: HTMLButtonElement = coffeeBean.drawButtonAsListItem(
-				this._list
-			);
-			coffeeBeanBtn.onclick = () => {
-				window.open(coffeeBean.urlToCoffeeBean);
-			};
-		});
+		//this is commented until i figure out how to properly display elements
+		// observable.subscribe((coffeeBean: CoffeeBeans) => {
+		// 	const coffeeBeanBtn: HTMLButtonElement = coffeeBean.drawChechInputAsListItem(
+		// 		this._list
+		// 	);
+		// 	coffeeBeanBtn.onclick = () => {
+		// 		window.open(coffeeBean.urlToCoffeeBean);
+		// 	};
+		// });
 	}
 
 	public clearList(): void {
