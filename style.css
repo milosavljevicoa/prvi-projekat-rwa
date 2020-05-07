@@ -42,3 +42,7 @@ p {
 .coffee-flavour-div button {
 	width: 100%;
 }
+
+.coffee-flavour-div .flavour-description {
+	order: 2;
+}

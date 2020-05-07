@@ -2,6 +2,7 @@ import { from, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import CoffeeFlavour from "../models/coffee-flavour";
 import CoffeeFlavourListItem from "../view/components/list-item/coffee-flavour-list-item";
+import CoffeeBeans from "../models/coffee-beans";
 // import PrimaryCoffeeFlavour from "../models/primary-coffee-flavour";
 // import SecondaryCoffeeFlavour from "../models/secondary-coffee-flavour";
 // import FinalCoffeeFlavour from "../models/final-coffee-flavour";
@@ -61,10 +62,16 @@ function createFinalCoffeeFlavour(DTO: any): CoffeeFlavour {
 	);
 }
 
-// export function fetchCoffeeBeans(): Observable<Array<CoffeeFlavour>> {
-// 	return getCoffeeFlavour("coffeeBeans").pipe(
-// 		map((DTOs: Array<any>) =>
-// 			DTOs.map((DTO: any) => CoffeeBeans.createCoffeeBeans(DTO))
-// 		)
-// 	);
-// }
+export function fetchCoffeeBeans(): Observable<Array<CoffeeBeans>> {
+	return getCoffeeFlavour("coffeeBeans").pipe(
+		map((DTOs: Array<any>) => DTOs.map((DTO: any) => createCoffeeBeans(DTO)))
+	);
+}
+
+function createCoffeeBeans(DTO: any): CoffeeBeans {
+	let finalFlavourProfileIDs = DTO["finalFlavourProfileIDs"].map(
+		(dto: any) => dto["id"]
+	);
+
+	return new CoffeeBeans(DTO["name"], finalFlavourProfileIDs, DTO["link"]);
+}

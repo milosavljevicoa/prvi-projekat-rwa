@@ -8,80 +8,39 @@ import CoffeeFlavour from "../models/coffee-flavour";
 import CoffeeFlavourUList from "./components/unordered-list/coffee-flavour-UList";
 import CoffeeFlavourListItem from "./components/list-item/coffee-flavour-list-item";
 import { Subject } from "rxjs";
+import PrimaryCoffeeUList from "./components/unordered-list/primary-coffee-UList";
+import SecondaryCoffeeUList from "./components/unordered-list/secondary-coffee-UList";
+import FinalCoffeeFlavourUList from "./components/unordered-list/final-coffee-flavour-UList";
+import CoffeeBeansUList from "./components/unordered-list/coffee-beans-UList";
 
-//TODO sadrzace ul-ove i pomocu toga ce biti displayovan li
 class CoffeePickerView {
 	private _primaryCoffeeFlavourList!: CoffeeFlavourUList;
-	private _selectedPrimaryFlavours!: Subject<Array<CoffeeFlavour>>;
 	private _secondaryCoffeeFlavourList!: CoffeeFlavourUList;
-
-	// private _finalCoffeeFlavourList: CoffeeFlavourUList;
-	// private _coffeeBeansList: CoffeeFlavourUList;
+	private _finalCoffeeFlavourList: CoffeeFlavourUList;
+	private _coffeeBeansList: CoffeeBeansUList;
 
 	constructor() {
-		const primaryDiv: HTMLDivElement | null = <HTMLDivElement>(
-			document.getElementById("primary-type")
+		this._primaryCoffeeFlavourList = new PrimaryCoffeeUList();
+		this._secondaryCoffeeFlavourList = new SecondaryCoffeeUList(
+			this._primaryCoffeeFlavourList.selectedFlavoursIds
 		);
-		const secondaryDiv: HTMLDivElement | null = <HTMLDivElement>(
-			document.getElementById("secondary-type")
+		this._finalCoffeeFlavourList = new FinalCoffeeFlavourUList(
+			this._secondaryCoffeeFlavourList.selectedFlavoursIds
 		);
 
-		if (primaryDiv === null || secondaryDiv === null) return;
-
-		this._selectedPrimaryFlavours = new Subject();
-		this._primaryCoffeeFlavourList = new CoffeeFlavourUList(primaryDiv);
-		// this._secondaryCoffeeFlavourList = new CoffeeFlavourUList(secondaryDiv);
-		this._primaryCoffeeFlavourList.drawCoffeeList("asd");
-
+		this._coffeeBeansList = new CoffeeBeansUList(
+			this._finalCoffeeFlavourList.selectedFlavoursIds
+		);
 		// this.initPrimaryList();
 	}
 
-	// public initPrimaryList(): void {
-	// 	this._primaryCoffeeFlavourList.configurationForObservable = () => {
-	// 		return fetchPrimaryTypeFlavours().pipe(
-	// 			take(1),
-	// 			concatAll(),
-	// 			map(
-	// 				(primary: CoffeeFlavour) =>
-	// 					new CoffeeFlavourListItem(
-	// 						this._primaryCoffeeFlavourList.uList,
-	// 						primary
-	// 					)
-	// 			)
-	// 		);
-	// 	};
-
-	// 	this._primaryCoffeeFlavourList.subscribeToObservable = (
-	// 		primaryCoffeeFlavour: CoffeeFlavourListItem
-	// 	) => {
-	// 		primaryCoffeeFlavour.drawListItem();
-	// 		primaryCoffeeFlavour.addOnChangeForCheckBox = (event) => {
-	// 			if (this._secondaryCoffeeFlavourList.isDisplayed) {
-	// 				this._secondaryCoffeeFlavourList.clearList();
-	// 			} else {
-	// 				this._secondaryCoffeeFlavourList.drawCoffeeList(
-	// 					"Pick coffee flavour profile"
-	// 				);
-	// 			}
-	// 			this._primaryCoffeeFlavourList.pushIdToList(
-	// 				primaryCoffeeFlavour.coffeeFlavour.id
-	// 			);
-	// 			// this._selectedPrimaryFlavours.next(this._primaryCoffeeFlavourList.)
-	// 		};
-	// 	};
-	// 	this._primaryCoffeeFlavourList.drawCoffeeList("Pick a flavour");
-	// }
-
-	// public initSecondaryList(): void {
-	// 	this._secondaryCoffeeFlavourList.configurationForObservable = () => {
-	// 		return this._selectedPrimaryFlavours;
-	// 	};
-	// }
-
 	public drawCompletedView(): void {
-		// this._primaryCoffeeFlavourList.drawCoffeeList(
-		// 	"Pick how would you like your coffee to taste"
-		// );
+		this._primaryCoffeeFlavourList.drawCoffeeList(
+			"Pick how would you like your coffee to taste"
+		);
+		this._secondaryCoffeeFlavourList.drawCoffeeList("Pick a flavour");
+		this._finalCoffeeFlavourList.drawCoffeeList("as");
+		this._coffeeBeansList.drawCoffeeList("asd");
 	}
 }
 

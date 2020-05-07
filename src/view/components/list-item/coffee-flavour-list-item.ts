@@ -1,5 +1,11 @@
 import CoffeeFlavour from "../../../models/coffee-flavour";
 
+import {
+	createListItem,
+	createWrapperWithDescription,
+	createCheckBoxWithValue,
+} from "../../../services/create-elements-with-className";
+
 class CoffeeFlavourListItem {
 	private _checkBox!: HTMLInputElement;
 	private _coffeeFlavour: CoffeeFlavour;
@@ -9,34 +15,18 @@ class CoffeeFlavourListItem {
 	}
 
 	public drawListItem() {
-		this.createListItem(this._ul);
-	}
+		let listItem = createListItem();
+		this._ul.appendChild(listItem);
 
-	private createCheckBox(): HTMLInputElement {
-		const listItem: HTMLInputElement = document.createElement("input");
-		listItem.type = "checkbox";
-		listItem.className = "checkbox";
-		listItem.value = this._coffeeFlavour.id;
-		return listItem;
-	}
+		const wrapperWithDesciprtion: HTMLDivElement = createWrapperWithDescription(
+			this.coffeeFlavour.typeOfFlavour
+		);
 
-	private createListItem(ul: HTMLUListElement): void {
-		const classNameLi: string = "flavours";
-		const listItem: HTMLLIElement = document.createElement("li");
-		listItem.className = classNameLi;
-		ul.appendChild(listItem);
+		this._checkBox = createCheckBoxWithValue(this._coffeeFlavour.id);
 
-		const classNameDiv: string = "coffee-flavour-div ";
-		const wrapperDiv: HTMLDivElement = document.createElement("div");
-		wrapperDiv.className = classNameDiv;
-		listItem.appendChild(wrapperDiv);
+		wrapperWithDesciprtion.appendChild(this._checkBox);
 
-		this._checkBox = this.createCheckBox();
-		wrapperDiv.appendChild(this._checkBox);
-
-		const flavour: HTMLParagraphElement = document.createElement("p");
-		flavour.innerText = " - " + this._coffeeFlavour.typeOfFlavour;
-		wrapperDiv.appendChild(flavour);
+		listItem.appendChild(wrapperWithDesciprtion);
 	}
 
 	public set addOnChangeForCheckBox(action: (event?: Event) => void) {

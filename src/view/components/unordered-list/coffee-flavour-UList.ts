@@ -1,73 +1,52 @@
 import { Observable, Subject } from "rxjs";
 import CoffeeFlavourListItem from "../list-item/coffee-flavour-list-item";
 import CoffeeFlavour from "../../../models/coffee-flavour";
-import { take, concatAll, map } from "rxjs/operators";
+
 import {
-	fetchFinalTypeFlavours,
-	fetchPrimaryTypeFlavours,
-} from "../../../services/fetch-from-databse";
+	createH5withDescription,
+	createEmptyCoffeeFlavourUList,
+} from "../../../services/create-elements-with-className";
 
 abstract class CoffeeFlavourUList {
-	private _list: HTMLUListElement;
-	protected _flavoursId: Array<string>;
-	private _isDisplayed: boolean;
+	private _list!: HTMLUListElement;
+	protected _coffeeFlavourListItems: Array<CoffeeFlavourListItem>;
 	protected _selectedFlavoursIds: Subject<Array<string>>;
-	//lako mogu da dobijem coffee flavour kao i checkbox
 
 	constructor(private _host: HTMLDivElement) {
-		this._list = this.createUList();
-		this._flavoursId = new Array();
-		this._isDisplayed = false;
+		this._coffeeFlavourListItems = new Array();
 		this._selectedFlavoursIds = new Subject();
-	}
-
-	private createUList(): HTMLUListElement {
-		const listClassName = "list-group list-group-horizontal";
-		const coffeeflavoursList: HTMLUListElement = document.createElement("ul");
-		coffeeflavoursList.className = listClassName;
-		return coffeeflavoursList;
 	}
 
 	public drawCoffeeList(description: string): void {
 		if (this._host === null) return;
+		const descriptionToGuideUser: HTMLHeadingElement = createH5withDescription(
+			description
+		);
+		this._host.appendChild(descriptionToGuideUser);
 
-		this.drawDescription(description);
+		this._list = createEmptyCoffeeFlavourUList();
 		this._host.appendChild(this._list);
-		this._isDisplayed = true;
 
 		this.subscribeToStream(
-			this.configureObservable(fetchPrimaryTypeFlavours())
+			this.configureObservable(this.fetchObservableFromDb())
 		);
 	}
 
-	private drawDescription(description: string): void {
-		const descriptionToGuideUser: HTMLHeadingElement = document.createElement(
-			"h5"
-		);
-		descriptionToGuideUser.innerText = description;
-		this._host.appendChild(descriptionToGuideUser);
-	}
-
-	protected configureObservable(
+	protected abstract configureObservable(
 		streamOfFlavours: Observable<Array<CoffeeFlavour>>
-	): Observable<CoffeeFlavourListItem> {
-		return streamOfFlavours.pipe(
-			take(1),
-			concatAll(),
-			map(
-				(flavour: CoffeeFlavour) =>
-					new CoffeeFlavourListItem(this.uList, flavour)
-			)
-		);
-	}
+	): Observable<CoffeeFlavourListItem>;
 
-	protected subscribeToStream(
+	private subscribeToStream(
 		configuredStream: Observable<CoffeeFlavourListItem>
 	): void {
 		configuredStream.subscribe((coffeeFlavourLItem: CoffeeFlavourListItem) => {
 			coffeeFlavourLItem.drawListItem();
+			this._coffeeFlavourListItems.push(coffeeFlavourLItem);
+			coffeeFlavourLItem.addOnChangeForCheckBox = this.handleOnClickCheckBox;
 		});
 	}
+
+	protected abstract handleOnClickCheckBox = (listItem?: Event): void => {};
 
 	protected abstract fetchObservableFromDb(): Observable<Array<CoffeeFlavour>>;
 
@@ -75,14 +54,14 @@ abstract class CoffeeFlavourUList {
 		return this._list;
 	}
 
-	protected get isDisplayed(): boolean {
-		return this._isDisplayed;
+	public get selectedFlavoursIds(): Subject<Array<string>> {
+		return this._selectedFlavoursIds;
 	}
 
-	protected removeIdFromList(id: string) {
-		this._flavoursId = this._flavoursId.filter(
-			(flavourId: string) => flavourId !== id
-		);
+	protected clearList(): void {
+		this._list.innerHTML = "";
+		this._coffeeFlavourListItems.length = 0;
+		this._selectedFlavoursIds.next([]);
 	}
 }
 
