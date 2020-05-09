@@ -1,5 +1,21 @@
+body,
+html {
+	height: 100%;
+}
 p {
-	margin-bottom: 6px;
+	margin-bottom: 10px;
+}
+
+.top-left {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 30px;
+}
+@media (max-width: 768px) {
+	.top-left {
+		margin: 10px;
+	}
 }
 
 .checkbox {
@@ -15,7 +31,7 @@ p {
 	align-items: center;
 }
 
-#first-type {
+#primary-type {
 	margin-top: 20px;
 }
 

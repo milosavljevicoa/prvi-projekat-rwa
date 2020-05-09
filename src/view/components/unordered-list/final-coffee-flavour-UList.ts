@@ -17,7 +17,6 @@ class FinalCoffeeFlavourUList extends CoffeeFlavourUList {
 	protected configureObservable(
 		streamOfFlavours: Observable<Array<CoffeeFlavour>>
 	): Observable<CoffeeFlavourListItem> {
-		// this.clearList();
 		return this._secondaryCoffeeFlavourStream.pipe(
 			switchMap((secondaryFlavoursId: Array<string>) => {
 				this.clearList();

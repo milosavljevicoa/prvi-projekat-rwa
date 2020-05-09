@@ -1,8 +1,7 @@
 import CoffeeFlavour from "./coffee-flavour";
 
-class CoffeeBeans {
+class CoffeeBean {
 	constructor(
-		// private _id: string,
 		private _typeOfFlavour: string,
 		private _parrentFlavoursIds: Array<string>,
 		private _urlToCoffeeBean: string
@@ -19,6 +18,10 @@ class CoffeeBeans {
 	public get urlToCoffeeBean(): string {
 		return this._urlToCoffeeBean;
 	}
+
+	public static createNotFoundCoffeeBean(): CoffeeBean {
+		return new CoffeeBean("Not found", new Array<string>(), "");
+	}
 }
 
-export default CoffeeBeans;
+export default CoffeeBean;

@@ -13,6 +13,14 @@
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
+		<button
+			type="button"
+			class="btn btn-info top-left"
+			data-toggle="modal"
+			data-target="#exampleModal"
+		>
+			Guide on how to use
+		</button>
 		<div class="row justify-content-center text-center flex-column">
 			<div class="mt-5">
 				<h1>Welcome to coffee bean selector</h1>
@@ -26,7 +34,69 @@
 			<div id="final-type" class="flavour-div d-flex flex-column"></div>
 
 			<div id="coffee-beans" class="flavour-div d-flex flex-column"></div>
+		</div>
+
+		<!-- Button trigger modal -->
+
+		<!-- Modal -->
+		<div
+			class="modal fade"
+			id="exampleModal"
+			tabindex="-1"
+			role="dialog"
+			aria-labelledby="exampleModalLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						Pick the perfect type of coffee bean
+						<br /><br />
+						Coffee flavours will be displayed as checkboxes and their
+						description just right to them, like this:
+						<br /><br />
+						<input type="checkbox" />
+						<span>- flavour</span>
+						<br /><br />
+						You have to choose from three layers of flavours.<br />
+						Each layer is connected to the layer above it (except the first
+						layer) to produce corresponding flavour.
+						<br />
+						<br />
+						Check the checkbox with the flavours you like from all three layers
+						and a coffee bean link will appear like this:
+						<br /><br />
+						<button class="btn btn-dark">Coffee bean name</button>
+						<br /><br />
+						Click on the button to open a new tab to find out more about the
+						coffee bean.
+						<br /><br />
+						Hope you find the perfect coffee bean for your Coffee!
+						<br /><br />
+						<div class="alert alert-warning" role="alert">
+							A click on the button will take you to an different existing page
+							that is not made in this project
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<script src="./dist/bundle.js"></script>
+		<script
+			src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"
+		></script>
 	</body>
 </html>

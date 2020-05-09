@@ -1,18 +1,18 @@
-import CoffeeBeans from "../../../models/coffee-beans";
+import CoffeeBean from "../../../models/coffee-bean";
 import { Observable, Subject } from "rxjs";
-import { fetchCoffeeBeans } from "../../../services/fetch-from-databse";
+import { fetchCoffeeBean } from "../../../services/fetch-from-databse";
 import {
 	createEmptyCoffeeFlavourUList,
 	createH5withDescription,
 } from "../../../services/create-elements-with-className";
-import CoffeeBeansListItem from "../list-item/coffee-bean-list-item";
-import CoffeeFlavour from "../../../models/coffee-flavour";
+import CoffeeBeanListItem from "../list-item/coffee-bean-list-item";
 import { switchMap, concatAll, filter, take, map } from "rxjs/operators";
 
-class CoffeeBeansUList {
+class CoffeeBeanUList {
 	private _list!: HTMLUListElement;
 	private _host: HTMLDivElement;
 	private _finalCoffeeFlavourStream: Subject<Array<string>>;
+	private _displayNotFoundCoffeeBean!: boolean;
 	constructor(finalCoffeeFlavourStream: Subject<Array<string>>) {
 		this._host = <HTMLDivElement>document.getElementById("coffee-beans");
 		this._finalCoffeeFlavourStream = finalCoffeeFlavourStream;
@@ -35,7 +35,7 @@ class CoffeeBeansUList {
 	}
 
 	protected configureObservable(
-		streamOfFlavours: Observable<Array<CoffeeBeans>>
+		streamOfFlavours: Observable<Array<CoffeeBean>>
 	): any {
 		return this._finalCoffeeFlavourStream.pipe(
 			switchMap((finalCoffeeFlavoursIds: Array<string>) => {
@@ -43,17 +43,21 @@ class CoffeeBeansUList {
 				return streamOfFlavours.pipe(
 					take(1),
 					concatAll(),
-					filter((coffeeBeans: CoffeeBeans) => {
-						if (finalCoffeeFlavoursIds.length === 0) return false;
-						coffeeBeans.parrentFlavoursIds.forEach((parrentId: string) => {
-							finalCoffeeFlavoursIds.forEach((finalCoffeeId: string) => {
-								if (parrentId !== finalCoffeeId) return false;
-							});
-						});
-						return true;
+					filter((coffeeBean: CoffeeBean) => {
+						if (finalCoffeeFlavoursIds.length === 0) {
+							this._displayNotFoundCoffeeBean = false;
+							return false;
+						}
+						const foundCoffeeBeanToDisplay: boolean = finalCoffeeFlavoursIds.every(
+							(coffeeFlavourId: string) =>
+								coffeeBean.parrentFlavoursIds.includes(coffeeFlavourId)
+						);
+						this._displayNotFoundCoffeeBean = !foundCoffeeBeanToDisplay;
+						return foundCoffeeBeanToDisplay;
 					}),
-					map((bean: CoffeeBeans) => {
-						return new CoffeeBeansListItem(this._list, bean);
+					map((bean: CoffeeBean) => {
+						this._displayNotFoundCoffeeBean = false;
+						return new CoffeeBeanListItem(this._list, bean);
 					})
 				);
 			})
@@ -61,15 +65,15 @@ class CoffeeBeansUList {
 	}
 
 	private subscribeToStream(
-		configuredStream: Observable<CoffeeBeansListItem>
+		configuredStream: Observable<CoffeeBeanListItem>
 	): void {
-		configuredStream.subscribe((coffeeBeansLI: CoffeeBeansListItem) => {
-			coffeeBeansLI.drawListItem();
+		configuredStream.subscribe((coffeeBeanLI: CoffeeBeanListItem) => {
+			coffeeBeanLI.drawListItem();
 		});
 	}
 
-	protected fetchObservableFromDb(): Observable<Array<CoffeeBeans>> {
-		return fetchCoffeeBeans();
+	protected fetchObservableFromDb(): Observable<Array<CoffeeBean>> {
+		return fetchCoffeeBean();
 	}
 
 	private clearList(): void {
@@ -77,4 +81,4 @@ class CoffeeBeansUList {
 	}
 }
 
-export default CoffeeBeansUList;
+export default CoffeeBeanUList;

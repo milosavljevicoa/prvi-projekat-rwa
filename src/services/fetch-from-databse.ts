@@ -1,12 +1,7 @@
 import { from, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import CoffeeFlavour from "../models/coffee-flavour";
-import CoffeeFlavourListItem from "../view/components/list-item/coffee-flavour-list-item";
-import CoffeeBeans from "../models/coffee-beans";
-// import PrimaryCoffeeFlavour from "../models/primary-coffee-flavour";
-// import SecondaryCoffeeFlavour from "../models/secondary-coffee-flavour";
-// import FinalCoffeeFlavour from "../models/final-coffee-flavour";
-// import CoffeeBeans from "../models/coffee-bean";
+import CoffeeBean from "../models/coffee-bean";
 
 const DATA_BASE_URL: string = "http://localhost:3000/";
 
@@ -62,16 +57,16 @@ function createFinalCoffeeFlavour(DTO: any): CoffeeFlavour {
 	);
 }
 
-export function fetchCoffeeBeans(): Observable<Array<CoffeeBeans>> {
+export function fetchCoffeeBean(): Observable<Array<CoffeeBean>> {
 	return getCoffeeFlavour("coffeeBeans").pipe(
-		map((DTOs: Array<any>) => DTOs.map((DTO: any) => createCoffeeBeans(DTO)))
+		map((DTOs: Array<any>) => DTOs.map((DTO: any) => createCoffeeBean(DTO)))
 	);
 }
 
-function createCoffeeBeans(DTO: any): CoffeeBeans {
+function createCoffeeBean(DTO: any): CoffeeBean {
 	let finalFlavourProfileIDs = DTO["finalFlavourProfileIDs"].map(
 		(dto: any) => dto["id"]
 	);
 
-	return new CoffeeBeans(DTO["name"], finalFlavourProfileIDs, DTO["link"]);
+	return new CoffeeBean(DTO["name"], finalFlavourProfileIDs, DTO["link"]);
 }

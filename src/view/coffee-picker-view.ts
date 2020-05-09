@@ -11,13 +11,13 @@ import { Subject } from "rxjs";
 import PrimaryCoffeeUList from "./components/unordered-list/primary-coffee-UList";
 import SecondaryCoffeeUList from "./components/unordered-list/secondary-coffee-UList";
 import FinalCoffeeFlavourUList from "./components/unordered-list/final-coffee-flavour-UList";
-import CoffeeBeansUList from "./components/unordered-list/coffee-beans-UList";
+import CoffeeBeanUList from "./components/unordered-list/coffee-beans-UList";
 
 class CoffeePickerView {
 	private _primaryCoffeeFlavourList!: CoffeeFlavourUList;
 	private _secondaryCoffeeFlavourList!: CoffeeFlavourUList;
 	private _finalCoffeeFlavourList: CoffeeFlavourUList;
-	private _coffeeBeansList: CoffeeBeansUList;
+	private _coffeeBeanList: CoffeeBeanUList;
 
 	constructor() {
 		this._primaryCoffeeFlavourList = new PrimaryCoffeeUList();
@@ -28,7 +28,7 @@ class CoffeePickerView {
 			this._secondaryCoffeeFlavourList.selectedFlavoursIds
 		);
 
-		this._coffeeBeansList = new CoffeeBeansUList(
+		this._coffeeBeanList = new CoffeeBeanUList(
 			this._finalCoffeeFlavourList.selectedFlavoursIds
 		);
 		// this.initPrimaryList();
@@ -36,11 +36,15 @@ class CoffeePickerView {
 
 	public drawCompletedView(): void {
 		this._primaryCoffeeFlavourList.drawCoffeeList(
-			"Pick how would you like your coffee to taste"
+			"First Layer To Pick a Coffee Flavour"
 		);
-		this._secondaryCoffeeFlavourList.drawCoffeeList("Pick a flavour");
-		this._finalCoffeeFlavourList.drawCoffeeList("as");
-		this._coffeeBeansList.drawCoffeeList("asd");
+		this._secondaryCoffeeFlavourList.drawCoffeeList(
+			"Second Layer To Pick a Coffee Flavour"
+		);
+		this._finalCoffeeFlavourList.drawCoffeeList(
+			"Third Layer To Pick a Coffee Flavour"
+		);
+		this._coffeeBeanList.drawCoffeeList("Link To Your Coffee Beans");
 	}
 }
 
