@@ -1,4 +1,4 @@
-import { Subject, Observable, fromEvent, throwError } from "rxjs";
+import { Subject, Observable, fromEvent } from "rxjs";
 import { map, mergeAll, takeUntil, tap } from "rxjs/operators";
 import CoffeeLinkListItem from "../list-item/coffee-link-list-item";
 import { createCoffeeLinkListItem } from "../../../services/create-elements-with-className";

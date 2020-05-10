@@ -1,9 +1,7 @@
-import { from, Observable, EMPTY, zip, empty, of } from "rxjs";
+import { from, Observable, zip, empty } from "rxjs";
 import { map, concatAll } from "rxjs/operators";
 import CoffeeFlavour from "../models/coffee-flavour";
 import CoffeeBean from "../models/coffee-bean";
-import EmptyObservable from "rxjs/observable/EmptyObservable";
-import CoffeeLinkListItem from "../view/components/list-item/coffee-link-list-item";
 
 const DATA_BASE_URL: string = "http://localhost:3000/";
 
