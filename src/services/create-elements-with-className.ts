@@ -1,5 +1,8 @@
+import CoffeeLinkListItem from "../view/components/list-item/coffee-link-list-item";
+import { Observable, empty, of } from "rxjs";
+
 export function createEmptyCoffeeFlavourUList(): HTMLUListElement {
-	const listClassName = "list-group list-group-horizontal";
+	const listClassName = "list-flavours";
 	const coffeeflavoursList: HTMLUListElement = document.createElement("ul");
 	coffeeflavoursList.className = listClassName;
 	return coffeeflavoursList;
@@ -52,6 +55,34 @@ export function createButtonWithInnerText(
 ): HTMLButtonElement {
 	const btn: HTMLButtonElement = document.createElement("button");
 	btn.innerText = innerText;
-	btn.className = "btn btn-dark text-center";
+	btn.className = "btn btn-dark text-center d-block w-100";
 	return btn;
+}
+
+export function createAnchorWithLink(
+	coffeeBeanAndLink: Array<string>
+): HTMLAnchorElement {
+	const coffeeBean: string = coffeeBeanAndLink[0];
+	const linkToCoffee: string = coffeeBeanAndLink[1];
+	const anchor: HTMLAnchorElement = document.createElement("a");
+	anchor.className = "text-primary";
+	anchor.href = linkToCoffee;
+	anchor.innerText = coffeeBean;
+	anchor.target = "_blank";
+
+	return anchor;
+}
+
+export function createCoffeeLinkListItem(
+	coffeeBeanWithLinkToNewPage: Array<string>,
+	ul: HTMLUListElement
+): Observable<CoffeeLinkListItem> {
+	if (coffeeBeanWithLinkToNewPage.length === 0) {
+		return empty();
+	}
+	const listItem: CoffeeLinkListItem = new CoffeeLinkListItem(
+		ul,
+		coffeeBeanWithLinkToNewPage
+	);
+	return of(listItem);
 }

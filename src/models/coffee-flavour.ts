@@ -2,7 +2,7 @@ class CoffeeFlavour {
 	constructor(
 		private _id: string,
 		private _typeOfFlavour: string,
-		private _parrentFlavourId: string
+		private _childFlavoursIds: Array<string>
 	) {}
 
 	get id(): string {
@@ -13,8 +13,12 @@ class CoffeeFlavour {
 		return this._typeOfFlavour;
 	}
 
-	get parrentFlavourId(): string {
-		return this._parrentFlavourId;
+	get childFlavoursIds(): Array<string> {
+		return this._childFlavoursIds;
+	}
+
+	get valueForButton(): string {
+		return this._childFlavoursIds.reduce((acc, v) => (acc = acc + "," + v));
 	}
 }
 

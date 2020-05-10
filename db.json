@@ -2,293 +2,321 @@
     "firstCoffeeFlavour": [
         {
             "id": "1",
-            "flavour": "nutty/coccoa"
+            "flavour": "nutty/coccoa",
+            "secondaryCoffeeFlavourIds": [
+                {
+                    "id": "1"
+                },
+                {
+                    "id": "2"
+                }
+            ]
         },
         {
             "id": "2",
-            "flavour": "sweet"
+            "flavour": "sweet",
+            "secondaryCoffeeFlavourIds": [
+                {
+                    "id": "3"
+                }
+            ]
         },
         {
             "id": "3",
-            "flavour": "fruity"
+            "flavour": "fruity",
+            "secondaryCoffeeFlavourIds": [
+                {
+                    "id": "4"
+                },
+                {
+                    "id": "5"
+                }
+            ]
         }
     ],
-    "secondCoffeeFlavour": [
+    "secondaryCoffeeFlavour": [
         {
             "id": "1",
             "flavour": "nutty",
-            "firstCoffeeFlavourId": "1"
+            "finalFlavourIds": [
+                {
+                    "id": "1"
+                },
+                {
+                    "id": "2"
+                }
+            ]
         },
         {
             "id": "2",
             "flavour": "cocoa",
-            "firstCoffeeFlavourId": "1"
+            "finalFlavourIds": [
+                {
+                    "id": "3"
+                },
+                {
+                    "id": "4"
+                }
+            ]
         },
         {
             "id": "3",
             "flavour": "vanilla/cream",
-            "firstCoffeeFlavourId": "2"
+            "finalFlavourIds": [
+                {
+                    "id": "5"
+                },
+                {
+                    "id": "9"
+                }
+            ]
         },
         {
             "id": "4",
             "flavour": "berry",
-            "firstCoffeeFlavourId": "3"
+            "finalFlavourIds": [
+                {
+                    "id": "6"
+                },
+                {
+                    "id": "7"
+                }
+            ]
         },
         {
             "id": "5",
             "flavour": "citrus",
-            "firstCoffeeFlavourId": "3"
+            "finalFlavourIds": [
+                {
+                    "id": "8"
+                }
+            ]
         }
     ],
-    "finalFlavourProfile": [
+    "finalCoffeeFlavour": [
         {
             "id": "1",
             "flavour": "almound",
-            "secondCoffeeFlavourId": "1"
+            "coffeeBeansIds": [
+                {
+                    "id": "2"
+                },
+                {
+                    "id": "4"
+                },
+                {
+                    "id": "5"
+                }
+            ]
         },
         {
             "id": "2",
             "flavour": "hazelnut",
-            "secondCoffeeFlavourId": "1"
+            "coffeeBeansIds": [
+                {
+                    "id": "6"
+                },
+                {
+                    "id": "8"
+                },
+                {
+                    "id": "17"
+                }
+            ]
         },
         {
             "id": "3",
             "flavour": "chocolate",
-            "secondCoffeeFlavourId": "2"
+            "coffeeBeansIds": [
+                {
+                    "id": "1"
+                },
+                {
+                    "id": "2"
+                },
+                {
+                    "id": "7"
+                },
+                {
+                    "id": "11"
+                },
+                {
+                    "id": "14"
+                },
+                {
+                    "id": "16"
+                },
+                {
+                    "id": "17"
+                }
+            ]
         },
         {
             "id": "4",
             "flavour": "dark chocolate",
-            "secondCoffeeFlavourId": "2"
+            "coffeeBeansIds": [
+                {
+                    "id": "3"
+                },
+                {
+                    "id": "9"
+                }
+            ]
         },
         {
             "id": "5",
             "flavour": "vanilla",
-            "secondCoffeeFlavourId": "3"
+            "coffeeBeansIds": [
+                {
+                    "id": "8"
+                },
+                {
+                    "id": "10"
+                },
+                {
+                    "id": "15"
+                },
+                {
+                    "id": "17"
+                }
+            ]
         },
         {
             "id": "6",
             "flavour": "blueberry",
-            "secondCoffeeFlavourId": "4"
+            "coffeeBeansIds": [
+                {
+                    "id": "12"
+                },
+                {
+                    "id": "13"
+                }
+            ]
         },
         {
             "id": "7",
             "flavour": "raspberry",
-            "secondCoffeeFlavourId": "4"
+            "coffeeBeansIds": [
+                {
+                    "id": "7"
+                }
+            ]
         },
         {
             "id": "8",
             "flavour": "orange",
-            "secondCoffeeFlavourId": "5"
+            "coffeeBeansIds": [
+                {
+                    "id": "9"
+                },
+                {
+                    "id": "15"
+                },
+                {
+                    "id": "16"
+                }
+            ]
         },
         {
             "id": "9",
             "flavour": "cream",
-            "secondCoffeeFlavourId": "3"
+            "coffeeBeansIds": [
+                {
+                    "id": "13"
+                },
+                {
+                    "id": "14"
+                },
+                {
+                    "id": "17"
+                }
+            ]
         }
     ],
     "coffeeBeans": [
         {
             "id": "1",
             "name": "Italian Chocolate Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "3"
-                }
-            ],
             "link": "https://www.coffeeam.com/collections/chocolate-coffee/products/italian-chocolate-flavored-coffee"
         },
         {
             "id": "2",
             "name": "Chocolate Almond Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "3"
-                },
-                {
-                    "id": "1"
-                }
-            ],
             "link": "https://www.coffeeam.com/collections/chocolate-coffee/products/chocolate-almond-flavored-coffee"
         },
         {
             "id": "3",
             "name": "Dark Chocolate Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "4"
-                }
-            ],
             "link": "https://www.coffeeam.com/collections/chocolate-coffee/products/dark-chocolate-flavored-coffee"
         },
         {
             "id": "4",
             "name": "Almond Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "1"
-                }
-            ],
             "link": "https://www.coffeeam.com/products/almond-flavored-coffee?_pos=1&_sid=5582474f5&_ss=r"
         },
         {
             "id": "5",
             "name": "Toasted Almound Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "1"
-                }
-            ],
             "link": "https://www.coffeeam.com/products/toasted-almond-flavored-coffee?_pos=2&_sid=5582474f5&_ss=r"
         },
         {
             "id": "6",
             "name": "Hazelnut Flavored Coffee ",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "2"
-                }
-            ],
             "link": "https://www.coffeeam.com/products/hazelnut-flavored-coffee?_pos=1&_sid=221d0b91a&_ss=r"
         },
         {
             "id": "7",
             "name": "Chocolate Raspberry Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "3"
-                },
-                {
-                    "id": "7"
-                }
-            ],
             "link": "https://www.coffeeam.com/collections/flavored-coffee/products/chocolate-raspberry-flavored-coffee"
         },
         {
             "id": "8",
             "name": "Vanilla Hazelnut Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "2"
-                },
-                {
-                    "id": "5"
-                }
-            ],
             "link": "https://www.coffeeam.com/collections/flavored-coffee/products/chocolate-raspberry-flavored-coffee"
         },
         {
             "id": "9",
             "name": "Cafe Borgia Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "4"
-                },
-                {
-                    "id": "8"
-                }
-            ],
             "link": "https://www.coffeeam.com/collections/chocolate-coffee/products/cafe-borgia-flavored-coffee"
         },
         {
             "id": "10",
             "name": "French Vanilla Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "5"
-                }
-            ],
             "link": "https://www.coffeeam.com/products/french-vanilla-flavored-coffee?_pos=1&_sid=0e1453dde&_ss=r"
         },
         {
             "id": "11",
             "name": "Smores Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "3"
-                }
-            ],
             "link": "https://www.coffeeam.com/products/smores-flavored-coffee?_pos=9&_sid=0e1453dde&_ss=r"
         },
         {
             "id": "12",
             "name": "Blueberry Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "6"
-                }
-            ],
             "link": "https://www.coffeeam.com/products/blueberry-flavored-coffee?_pos=1&_sid=2de2cbed7&_ss=r"
         },
         {
             "id": "13",
             "name": "Blueberry Cream Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "6"
-                },
-                {
-                    "id": "9"
-                }
-            ],
             "link": "https://www.coffeeam.com/products/blueberry-cream-flavored-coffee?_pos=3&_sid=2de2cbed7&_ss=r"
         },
         {
             "id": "14",
             "name": "Raspberry Cream Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "3"
-                },
-                {
-                    "id": "9"
-                }
-            ],
             "link": "https://www.coffeeam.com/products/raspberry-cream-flavored-coffee?_pos=8&_sid=f07dbd99c&_ss=r"
         },
         {
             "id": "15",
             "name": "Café Parisian Flavored Coffee ",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "5"
-                },
-                {
-                    "id": "8"
-                }
-            ],
             "link": "https://www.coffeeam.com/products/cafe-parisian-flavored-coffee?_pos=3&_sid=26c666f91&_ss=r"
         },
         {
             "id": "16",
             "name": "Grand Marnier Flavored Coffee ",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "3"
-                },
-                {
-                    "id": "8"
-                }
-            ],
             "link": "https://www.coffeeam.com/products/grand-marnier-flavored-coffee?_pos=4&_sid=26c666f91&_ss=r"
         },
         {
             "id": "17",
             "name": "Frangelica Cream Flavored Coffee",
-            "finalFlavourProfileIDs": [
-                {
-                    "id": "3"
-                },
-                {
-                    "id": "5"
-                },
-                {
-                    "id": "2"
-                },
-                {
-                    "id": "9"
-                }
-            ],
             "link": "https://www.coffeeam.com/products/frangelica-cream-flavored-coffee?_pos=5&_sid=26c666f91&_ss=r"
         }
     ]

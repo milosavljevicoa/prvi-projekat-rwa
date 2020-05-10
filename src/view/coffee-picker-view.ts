@@ -1,26 +1,20 @@
-//coffee flavour list
-// import Coffee
-
-import { fetchPrimaryTypeFlavours } from "../services/fetch-from-databse";
-import { concatAll, take, map } from "rxjs/operators";
-
-import CoffeeFlavour from "../models/coffee-flavour";
-import CoffeeFlavourUList from "./components/unordered-list/coffee-flavour-UList";
-import CoffeeFlavourListItem from "./components/list-item/coffee-flavour-list-item";
-import { Subject } from "rxjs";
+import CoffeeFlavourUList from "./components/unordered-list/abstract-class/coffee-flavour-UList";
 import PrimaryCoffeeUList from "./components/unordered-list/primary-coffee-UList";
 import SecondaryCoffeeUList from "./components/unordered-list/secondary-coffee-UList";
 import FinalCoffeeFlavourUList from "./components/unordered-list/final-coffee-flavour-UList";
-import CoffeeBeanUList from "./components/unordered-list/coffee-beans-UList";
+import CoffeeBeanUList from "./components/unordered-list/coffee-bean-UList";
+import CoffeeBeansHistoryUList from "./components/unordered-list/coffee-beans-history-UList";
 
 class CoffeePickerView {
 	private _primaryCoffeeFlavourList!: CoffeeFlavourUList;
 	private _secondaryCoffeeFlavourList!: CoffeeFlavourUList;
 	private _finalCoffeeFlavourList: CoffeeFlavourUList;
-	private _coffeeBeanList: CoffeeBeanUList;
+	private _coffeeBeanList: CoffeeFlavourUList;
+	private _coffeeHistoryList: CoffeeBeansHistoryUList;
 
 	constructor() {
 		this._primaryCoffeeFlavourList = new PrimaryCoffeeUList();
+
 		this._secondaryCoffeeFlavourList = new SecondaryCoffeeUList(
 			this._primaryCoffeeFlavourList.selectedFlavoursIds
 		);
@@ -31,7 +25,10 @@ class CoffeePickerView {
 		this._coffeeBeanList = new CoffeeBeanUList(
 			this._finalCoffeeFlavourList.selectedFlavoursIds
 		);
-		// this.initPrimaryList();
+
+		this._coffeeHistoryList = new CoffeeBeansHistoryUList(
+			this._coffeeBeanList.selectedFlavoursIds
+		);
 	}
 
 	public drawCompletedView(): void {
@@ -45,6 +42,8 @@ class CoffeePickerView {
 			"Third Layer To Pick a Coffee Flavour"
 		);
 		this._coffeeBeanList.drawCoffeeList("Link To Your Coffee Beans");
+
+		this._coffeeHistoryList.drawHistoryList();
 	}
 }
 

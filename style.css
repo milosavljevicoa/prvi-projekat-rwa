@@ -6,6 +6,10 @@ p {
 	margin-bottom: 10px;
 }
 
+.info-links {
+	margin-top: 40px;
+}
+
 .top-left {
 	position: absolute;
 	top: 0;
@@ -35,7 +39,9 @@ p {
 	margin-top: 20px;
 }
 
-.list-group {
+.list-flavours {
+	display: flex;
+	flex-direction: row;
 	list-style-type: none;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -61,4 +67,9 @@ p {
 
 .coffee-flavour-div .flavour-description {
 	order: 2;
+}
+
+.padding-right {
+	padding: 0;
+	padding-right: 10%;
 }
