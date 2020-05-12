@@ -7,18 +7,18 @@ import CoffeeFlavourListItem from "../list-item/coffee-flavour-list-item";
 //models
 import CoffeeFlavour from "../../../models/coffee-flavour";
 //database access functions
-import { fetchSecondaryTypeFlavours } from "../../../services/fetch-from-databse";
+import { fetchPreciseSecondaryTypeFlavours$ } from "../../../services/fetch-from-databse";
 
 class SecondaryCoffeeUList extends CoffeeFlavourUList {
 	constructor(private _myIdsToDisplay: Subject<Array<string>>) {
 		super(<HTMLDivElement>document.getElementById("secondary-type"));
 	}
 
-	protected configureObservable(): Observable<CoffeeFlavourListItem> {
+	protected configureMySteam$(): Observable<CoffeeFlavourListItem> {
 		return this._myIdsToDisplay.pipe(
 			switchMap((idsToDisplay: Array<string>) => {
 				this.clearList();
-				return fetchSecondaryTypeFlavours(idsToDisplay);
+				return fetchPreciseSecondaryTypeFlavours$(idsToDisplay);
 			}),
 			map(
 				(coffeeFlavour: CoffeeFlavour) =>

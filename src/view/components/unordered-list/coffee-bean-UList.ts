@@ -7,18 +7,18 @@ import CoffeeFlavourUList from "./abstract-class/coffee-flavour-UList";
 //models
 import CoffeeBean from "../../../models/coffee-bean";
 //database functions
-import { fetchCoffeeBean } from "../../../services/fetch-from-databse";
+import { fetchPreciseCoffeeBean$ } from "../../../services/fetch-from-databse";
 
 class CoffeeBeanUList extends CoffeeFlavourUList {
-	constructor(private _finalCoffeeFlavourStream: Subject<Array<string>>) {
+	constructor(private _finalCoffeeFlavourStream$: Subject<Array<string>>) {
 		super(<HTMLDivElement>document.getElementById("coffee-beans"));
 	}
 
-	protected configureObservable(): Observable<CoffeeFlavourListItem> {
-		return this._finalCoffeeFlavourStream.pipe(
+	protected configureMySteam$(): Observable<CoffeeFlavourListItem> {
+		return this._finalCoffeeFlavourStream$.pipe(
 			switchMap((coffeeBeanIds: Array<string>) => {
 				this.clearList();
-				return fetchCoffeeBean(coffeeBeanIds);
+				return fetchPreciseCoffeeBean$(coffeeBeanIds);
 			}),
 			map(
 				(coffeeFlavour: CoffeeBean) =>

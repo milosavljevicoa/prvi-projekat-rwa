@@ -1,7 +1,7 @@
 import { Subject, Observable, fromEvent } from "rxjs";
 import { map, mergeAll, takeUntil, take } from "rxjs/operators";
 import CoffeeLinkListItem from "../list-item/coffee-link-list-item";
-import { createCoffeeLinkListItem } from "../../../services/create-elements-with-className";
+import { createHistoryCoffeeLinkListItem$ } from "../../../services/create-elements-with-className";
 
 class CoffeeBeansHistoryUList {
 	private _list!: HTMLUListElement;
@@ -12,7 +12,7 @@ class CoffeeBeansHistoryUList {
 		this._host = <HTMLDivElement>document.getElementById("coffee-links");
 
 		this._list = document.createElement("ul");
-		this._list.className = "list-group";
+		this._list.className = "list-group mb-5";
 
 		const saveHistoryButton: HTMLButtonElement = <HTMLButtonElement>(
 			document.getElementById("save-history")
@@ -28,7 +28,7 @@ class CoffeeBeansHistoryUList {
 	}
 
 	private drawListItems(): void {
-		this.configureStream().subscribe({
+		this.configureStream$().subscribe({
 			next(link: CoffeeLinkListItem) {
 				link.drawListItem();
 			},
@@ -40,11 +40,11 @@ class CoffeeBeansHistoryUList {
 		});
 	}
 
-	private configureStream(): Observable<CoffeeLinkListItem> {
+	private configureStream$(): Observable<CoffeeLinkListItem> {
 		return this._coffeeBeanNameWithLink.pipe(
 			takeUntil(this._clickToSaveHistory),
 			map((coffeeBeanNameWithLinkToDisplay: Array<string>) => {
-				return createCoffeeLinkListItem(
+				return createHistoryCoffeeLinkListItem$(
 					coffeeBeanNameWithLinkToDisplay,
 					this._list
 				);

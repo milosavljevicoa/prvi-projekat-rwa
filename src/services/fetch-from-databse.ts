@@ -5,16 +5,23 @@ import CoffeeBean from "../models/coffee-bean";
 
 const DATA_BASE_URL: string = "http://localhost:3000/";
 
-function getCoffeeFlavour(specificType: string): Observable<CoffeeFlavour> {
+function getCoffeeFlavour$(specificType: string): Observable<CoffeeFlavour> {
 	return from(
 		fetch(DATA_BASE_URL + specificType).then((data: Response) => data.json())
 	).pipe(concatAll());
 }
 
-export function fetchPrimaryTypeFlavours(): Observable<CoffeeFlavour> {
-	return getCoffeeFlavour("firstCoffeeFlavour").pipe(
-		map((DTO: any) => createPrimaryCoffeeFlavour(DTO))
+function fetchTypeOfFlavours$(
+	typeOfFlavour: string,
+	convertToFlavour: (DTO: any) => CoffeeFlavour
+): Observable<CoffeeFlavour> {
+	return getCoffeeFlavour$(typeOfFlavour).pipe(
+		map((DTO: any) => convertToFlavour(DTO))
 	);
+}
+
+export function fetchPrimaryTypeFlavours$(): Observable<CoffeeFlavour> {
+	return fetchTypeOfFlavours$("firstCoffeeFlavour", createPrimaryCoffeeFlavour);
 }
 
 function createPrimaryCoffeeFlavour(DTO: any): CoffeeFlavour {
@@ -31,24 +38,30 @@ function createIdsFromDTOArray(DTO: Array<any>): Array<string> {
 	return ids;
 }
 
-export function fetchSecondaryTypeFlavours(
-	ids: Array<string>
+function fetchPreciseTypeOfFlavours$(
+	ids: Array<string>,
+	fetchOneTypeOfFlavour$: (id: string) => Observable<CoffeeFlavour>
 ): Observable<CoffeeFlavour> {
 	if (ids.length === 0) {
 		return empty();
 	}
 
 	let flavours: Array<Observable<CoffeeFlavour>> = ids.map((id: string) =>
-		fetchSpecificSecondaryTypeFlavour(id)
+		fetchOneTypeOfFlavour$(id)
 	);
 	return zip(...flavours).pipe(concatAll());
 }
 
-function fetchSpecificSecondaryTypeFlavour(
-	id: string
+export function fetchPreciseSecondaryTypeFlavours$(
+	ids: Array<string>
 ): Observable<CoffeeFlavour> {
-	return getCoffeeFlavour("secondaryCoffeeFlavour?id=" + id).pipe(
-		map((DTO: any) => createSecondaryCoffeeFlavour(DTO))
+	return fetchPreciseTypeOfFlavours$(ids, fetchOneSecondaryTypeFlavour$);
+}
+
+function fetchOneSecondaryTypeFlavour$(id: string): Observable<CoffeeFlavour> {
+	return fetchTypeOfFlavours$(
+		"secondaryCoffeeFlavour?id=" + id,
+		createSecondaryCoffeeFlavour
 	);
 }
 
@@ -60,24 +73,18 @@ function createSecondaryCoffeeFlavour(DTO: any): CoffeeFlavour {
 	);
 }
 
-export function fetchFinalTypeFlavours(
+export function fetchPreciseFinalTypeFlavours$(
 	ids: Array<string>
 ): Observable<CoffeeFlavour> {
-	if (ids.length === 0) {
-		return empty();
-	}
-
-	let flavours: Array<Observable<CoffeeFlavour>> = ids.map((id: string) =>
-		fetchSpecificFinalTypeCoffeeFlavour(id)
-	);
-	return zip(...flavours).pipe(concatAll());
+	return fetchPreciseTypeOfFlavours$(ids, fetchOneFinalTypeCoffeeFlavour$);
 }
 
-function fetchSpecificFinalTypeCoffeeFlavour(
+function fetchOneFinalTypeCoffeeFlavour$(
 	id: string
 ): Observable<CoffeeFlavour> {
-	return getCoffeeFlavour("finalCoffeeFlavour?id=" + id).pipe(
-		map((DTO: any) => createFinalCoffeeFlavour(DTO))
+	return fetchTypeOfFlavours$(
+		"finalCoffeeFlavour?id=" + id,
+		createFinalCoffeeFlavour
 	);
 }
 
@@ -89,20 +96,17 @@ function createFinalCoffeeFlavour(DTO: any): CoffeeFlavour {
 	);
 }
 
-export function fetchCoffeeBean(ids: Array<string>): Observable<CoffeeBean> {
-	if (ids.length === 0) {
-		return empty();
-	}
-
-	let flavours: Array<Observable<CoffeeBean>> = ids.map((id: string) =>
-		fetchSpecificTypeOfCoffeeBean(id)
+export function fetchPreciseCoffeeBean$(
+	ids: Array<string>
+): Observable<CoffeeBean> {
+	return <Observable<CoffeeBean>>(
+		fetchPreciseTypeOfFlavours$(ids, fetchOneTypeOfCoffeeBean$)
 	);
-	return zip(...flavours).pipe(concatAll());
 }
 
-function fetchSpecificTypeOfCoffeeBean(id: string): Observable<CoffeeBean> {
-	return getCoffeeFlavour("coffeeBeans?id=" + id).pipe(
-		map((DTO: any) => createCoffeeBean(DTO))
+function fetchOneTypeOfCoffeeBean$(id: string): Observable<CoffeeBean> {
+	return <Observable<CoffeeBean>>(
+		fetchTypeOfFlavours$("coffeeBeans?id=" + id, createCoffeeBean)
 	);
 }
 

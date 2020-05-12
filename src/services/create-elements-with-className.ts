@@ -73,7 +73,7 @@ export function createAnchorWithLink(
 	return anchor;
 }
 
-export function createCoffeeLinkListItem(
+export function createHistoryCoffeeLinkListItem$(
 	coffeeBeanWithLinkToNewPage: Array<string>,
 	ul: HTMLUListElement
 ): Observable<CoffeeLinkListItem> {

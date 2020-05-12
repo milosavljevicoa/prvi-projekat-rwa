@@ -41,7 +41,7 @@ class CoffeePickerView {
 		this._finalCoffeeFlavourList.drawCoffeeList(
 			"Third Layer To Pick a Coffee Flavour"
 		);
-		this._coffeeBeanList.drawCoffeeList("Link To Your Coffee Beans");
+		this._coffeeBeanList.drawCoffeeList("Your Coffee Beans");
 
 		this._coffeeHistoryList.drawHistoryList();
 	}

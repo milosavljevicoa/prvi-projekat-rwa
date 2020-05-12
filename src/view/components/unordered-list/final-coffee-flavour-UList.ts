@@ -7,18 +7,18 @@ import CoffeeFlavourListItem from "../list-item/coffee-flavour-list-item";
 //models
 import CoffeeFlavour from "../../../models/coffee-flavour";
 //database functions
-import { fetchFinalTypeFlavours } from "../../../services/fetch-from-databse";
+import { fetchPreciseFinalTypeFlavours$ } from "../../../services/fetch-from-databse";
 
 class FinalCoffeeFlavourUList extends CoffeeFlavourUList {
 	constructor(private _myIdsToDisplay: Subject<Array<string>>) {
 		super(<HTMLDivElement>document.getElementById("final-type"));
 	}
 
-	protected configureObservable(): Observable<CoffeeFlavourListItem> {
+	protected configureMySteam$(): Observable<CoffeeFlavourListItem> {
 		return this._myIdsToDisplay.pipe(
 			switchMap((idsToDisplay: Array<string>) => {
 				this.clearList();
-				return fetchFinalTypeFlavours(idsToDisplay);
+				return fetchPreciseFinalTypeFlavours$(idsToDisplay);
 			}),
 			map(
 				(coffeeFlavour: CoffeeFlavour) =>

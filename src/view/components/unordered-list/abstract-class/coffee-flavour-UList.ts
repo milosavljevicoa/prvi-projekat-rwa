@@ -8,42 +8,36 @@ import {
 
 abstract class CoffeeFlavourUList {
 	private _list!: HTMLUListElement;
-	private _selectedFlavoursIds: Subject<Array<string>>;
+	private _selectedFlavoursIds$: Subject<Array<string>>;
 
 	constructor(private _host: HTMLDivElement) {
-		this._selectedFlavoursIds = new Subject();
+		this._selectedFlavoursIds$ = new Subject();
 	}
 
 	public drawCoffeeList(description: string): void {
 		if (this._host === null) return;
-		const descriptionToGuideUser: HTMLHeadingElement = createH5withDescription(
+		const descriptionAboutLayer: HTMLHeadingElement = createH5withDescription(
 			description
 		);
-		this._host.appendChild(descriptionToGuideUser);
+		this._host.appendChild(descriptionAboutLayer);
 
 		this._list = createEmptyCoffeeFlavourUList();
 		this._host.appendChild(this._list);
 
-		this.subscribeToObservable(this.configureObservable());
+		this.configureMySteam$().subscribe(this.displayFlavour);
 	}
 
-	protected abstract configureObservable(): Observable<CoffeeFlavourListItem>;
+	protected abstract configureMySteam$(): Observable<CoffeeFlavourListItem>;
 
-	private subscribeToObservable(
-		configuredObservable: Observable<CoffeeFlavourListItem>
-	): void {
-		configuredObservable.subscribe(
-			(toDisplayListItem: CoffeeFlavourListItem) => {
-				toDisplayListItem.drawListItem();
-				toDisplayListItem.addButtonOnClick = this.onclick;
-			}
-		);
-	}
+	private displayFlavour = (toDisplayListItem: CoffeeFlavourListItem) => {
+		toDisplayListItem.drawListItem();
+		toDisplayListItem.addButtonOnClick = this.onclick;
+	};
 
 	protected onclick = (event: Event): void => {
 		let chosenButton: HTMLButtonElement = <HTMLButtonElement>event.target;
 		let ids: Array<string> = chosenButton.value.split(",");
-		this._selectedFlavoursIds.next(ids);
+		this._selectedFlavoursIds$.next(ids);
 	};
 
 	protected get uList(): HTMLUListElement {
@@ -51,12 +45,12 @@ abstract class CoffeeFlavourUList {
 	}
 
 	public get selectedFlavoursIds(): Subject<Array<string>> {
-		return this._selectedFlavoursIds;
+		return this._selectedFlavoursIds$;
 	}
 
 	protected clearList(): void {
 		this._list.innerHTML = "";
-		this._selectedFlavoursIds.next([]);
+		this._selectedFlavoursIds$.next([]);
 	}
 }
 
